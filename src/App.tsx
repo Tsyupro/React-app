@@ -4,6 +4,8 @@ import CityInfo from './CityInfo';
 import Landmark from './Landmark';
 import OtherLandmarks from './OtherLandmarks';
 import CityPhotos from './CityPhotos';
+import UploadForm from './UploadForm';
+import './App.css';
 
 function PageWithParam({ Component }: { Component: React.FC<{ id: string }> }) {
   let { id } = useParams();
@@ -23,6 +25,7 @@ function App() {
             <li><Link to="/landmark/1">Пам'ятка</Link></li>
             <li><Link to="/other-landmarks/1">Інші пам'ятки</Link></li>
             <li><Link to="/photos/1">Фотографії</Link></li>
+            <li><Link to="/upload">Завантажити фотографію</Link></li> {/* Додайте нове посилання */}
           </ul>
         </nav>
         <Routes>
@@ -30,6 +33,7 @@ function App() {
           <Route path="/landmark/:id" element={<PageWithParam Component={Landmark} />} />
           <Route path="/other-landmarks/:id" element={<PageWithParam Component={OtherLandmarks} />} />
           <Route path="/photos/:id" element={<PageWithParam Component={CityPhotos} />} />
+          <Route path="/upload" element={<UploadForm />} /> {/* Додайте новий маршрут */}
         </Routes>
       </div>
     </Router>
