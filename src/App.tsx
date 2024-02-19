@@ -1,25 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Link, useParams } from 'react-router-dom';
+import CityInfo from './CityInfo';
+import Landmark from './Landmark';
+import OtherLandmarks from './OtherLandmarks';
+import CityPhotos from './CityPhotos';
+
+function PageWithParam({ Component }: { Component: React.FC<{ id: string }> }) {
+  let { id } = useParams();
+  if (id === undefined) {
+    id = '';
+  }
+  return <Component id={id} />;
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <nav className="menu">
+          <ul>
+            <li><Link to="/1">Головна</Link></li>
+            <li><Link to="/landmark/1">Пам'ятка</Link></li>
+            <li><Link to="/other-landmarks/1">Інші пам'ятки</Link></li>
+            <li><Link to="/photos/1">Фотографії</Link></li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/:id" element={<PageWithParam Component={CityInfo} />} />
+          <Route path="/landmark/:id" element={<PageWithParam Component={Landmark} />} />
+          <Route path="/other-landmarks/:id" element={<PageWithParam Component={OtherLandmarks} />} />
+          <Route path="/photos/:id" element={<PageWithParam Component={CityPhotos} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
